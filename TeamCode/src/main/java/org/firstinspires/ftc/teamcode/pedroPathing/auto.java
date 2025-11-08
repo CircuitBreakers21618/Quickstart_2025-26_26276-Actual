@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,7 +24,7 @@ public class auto extends OpMode {
         lr.setPower(1);
         rf.setPower(1);
         rr.setPower(1);
-        wait(500);
+        sleep(5000);
         lf.setPower(0);
         lr.setPower(0);
         rf.setPower(0);
