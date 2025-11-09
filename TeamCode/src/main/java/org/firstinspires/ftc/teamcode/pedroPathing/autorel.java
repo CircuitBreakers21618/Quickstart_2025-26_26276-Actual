@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name = "SP Auto1", group = "2024-25 SP")
-public class auto extends LinearOpMode {
+public class autorel extends LinearOpMode {
 
     DcMotor lf, rf;
     DcMotor lr, rr;
