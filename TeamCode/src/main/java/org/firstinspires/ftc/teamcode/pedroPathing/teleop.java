@@ -29,10 +29,10 @@ public class teleop extends OpMode {
 
     @Override
     public void loop() {
-        lf.setPower(gamepad1.left_stick_y + -gamepad1.right_stick_x * 1.1 + gamepad1.left_stick_x);
-        lr.setPower(-gamepad1.left_stick_y + -gamepad1.right_stick_x * 1.1+ gamepad1.left_stick_x);
-        rf.setPower(gamepad1.left_stick_y + gamepad1.right_stick_x * 1.1 +gamepad1.left_stick_x);
-        rr.setPower(gamepad1.left_stick_y + -gamepad1.right_stick_x * 1.1 + gamepad1.left_stick_x);
+        lf.setPower(gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1 + gamepad1.right_stick_x);
+        lr.setPower(-gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1+ gamepad1.right_stick_x);
+        rf.setPower(gamepad1.left_stick_y + gamepad1.right_stick_y * 1.1 +gamepad1.right_stick_x);
+        rr.setPower(gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1 + gamepad1.right_stick_x);
      /*   intakerel.setPower(gamepad2.right_stick_x);
 
         if (currentGamepad2.a && !previousGamepad2.a) {

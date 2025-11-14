@@ -9,7 +9,7 @@ public class autorel extends LinearOpMode {
 
     DcMotor lf, rf;
     DcMotor lr, rr;
-
+    int sleepTime = 500;
     @Override
     public void runOpMode() throws InterruptedException {
         lf = hardwareMap.get(DcMotor.class, "lf");
@@ -17,11 +17,11 @@ public class autorel extends LinearOpMode {
         rf = hardwareMap.get(DcMotor.class, "rf");
         rr = hardwareMap.get(DcMotor.class, "rr");
         waitForStart();
-        lf.setPower(1);
-        lr.setPower(-1);
-        rf.setPower(1);
-        rr.setPower(1);
-        wait(500);
+        lf.setPower(-1);
+        lr.setPower(1);
+        rf.setPower(-1);
+        rr.setPower(-1);
+        sleep(sleepTime);
         lf.setPower(0);
         lr.setPower(0);
         rf.setPower(0);
