@@ -59,12 +59,12 @@ public class teleop extends OpMode {
         }
 
         if(gamepad1.right_bumper){
-            pusher.setPosition(.9);
+            pusher.setPosition(.5);
         }
 
 
-        if(gamepad1.right_bumper){
-            pusher.setPosition(.1);
+        if(gamepad1.left_bumper){
+            pusher.setPosition(0);
         }
 
 
