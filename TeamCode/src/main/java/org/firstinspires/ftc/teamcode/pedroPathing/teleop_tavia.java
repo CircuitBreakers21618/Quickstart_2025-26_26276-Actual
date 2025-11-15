@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -15,6 +16,7 @@ public class teleop_tavia extends OpMode {
    DcMotor shooter1;
     DcMotor shooter2;
     Servo pusher;
+
 
     @Override
     public void init() {
@@ -31,14 +33,17 @@ public class teleop_tavia extends OpMode {
 
 
 
+
+
     }
 
     @Override
     public void loop() {
-        lf.setPower(gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1 + gamepad1.right_stick_x);
-        lr.setPower(-gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1 + gamepad1.right_stick_x);
-        rf.setPower(gamepad1.right_stick_y + gamepad1.left_stick_x * 1.1 + gamepad1.right_stick_x);
-        rr.setPower(gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1 + gamepad1.right_stick_x);
+
+        lf.setPower((gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1)*-1 + gamepad1.right_stick_x);
+        lr.setPower((-gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1)*-1 + gamepad1.right_stick_x);
+        rf.setPower((gamepad1.right_stick_y + gamepad1.left_stick_x * 1.1)*-1 + gamepad1.right_stick_x);
+        rr.setPower((gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1)*-1 + gamepad1.right_stick_x);
         if (gamepad1.a) {
 
             shooter1.setPower(.5);

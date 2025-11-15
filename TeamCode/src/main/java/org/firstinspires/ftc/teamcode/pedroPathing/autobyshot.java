@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "SP Auto2 blue", group = "2024-25 SP")
+@Autonomous(name = "SP not needed", group = "2024-25 SP")
 public class autobyshot extends LinearOpMode {
 
     DcMotor lf, rf;
