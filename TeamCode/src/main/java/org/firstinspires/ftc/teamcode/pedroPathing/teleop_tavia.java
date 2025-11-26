@@ -14,7 +14,6 @@ public class teleop_tavia extends OpMode {
     DcMotor lr, rr;
    DcMotor intakerel;
    DcMotor shooter1;
-    DcMotor shooter2;
     Servo pusher;
 
 
@@ -26,7 +25,7 @@ public class teleop_tavia extends OpMode {
         rr = hardwareMap.get(DcMotor.class, "rr");
         intakerel = hardwareMap.get(DcMotor.class, "intakerel");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
-        shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
+
         pusher = hardwareMap.get(Servo.class, "pusher");
 
 
@@ -46,14 +45,12 @@ public class teleop_tavia extends OpMode {
         rr.setPower((gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1)*-1 + gamepad1.right_stick_x);
         if (gamepad1.a) {
 
-            shooter1.setPower(.5);
-            shooter2.setPower(-.5);
+            shooter1.setPower(1);
         }
 
         if (gamepad1.y) {
 
             shooter1.setPower(0);
-            shooter2.setPower(0);
         }
 
         if (gamepad1.x) {
