@@ -16,6 +16,10 @@ public class teleop extends OpMode {
 
     Servo pusher;
 
+    Gamepad currentGamepad2 = new Gamepad();
+    Gamepad previousGamepad2 = new Gamepad();
+    int intaketimer = 0;
+    int shoottimer = 0;
 
     @Override
     public void init() {
@@ -33,38 +37,50 @@ public class teleop extends OpMode {
 
     @Override
     public void loop() {
-        lf.setPower((gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*-1 + gamepad1.right_stick_x);
-        lr.setPower((-gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*-1+ gamepad1.right_stick_x);
-        rf.setPower((gamepad1.left_stick_y + gamepad1.right_stick_y * 1.1)*-1 +gamepad1.right_stick_x);
-        rr.setPower((gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*-1 + gamepad1.right_stick_x);
-        if (gamepad1.a) {
+        lf.setPower((gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*1 + gamepad1.right_stick_x);
+        lr.setPower((-gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*1+ gamepad1.right_stick_x);
+        rf.setPower((gamepad1.left_stick_y + gamepad1.right_stick_y * 1.1)*1 +gamepad1.right_stick_x);
+        rr.setPower((gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*1 + gamepad1.right_stick_x);
 
-            shooter1.setPower(-.8);
-        }
-
-        if (gamepad1.y) {
-
-            shooter1.setPower(0);
-        }
+        if (currentGamepad2.x && !previousGamepad2.x) {
+            if (intaketimer == 1) { //position 0 -> 1
 
 
-        if (gamepad1.x) {
-            intakerel.setPower(-1);
-        }
 
-        if (gamepad1.b) {
-            intakerel.setPower(0);
-        }
+                intakerel.setPower(-1);
 
-        if(gamepad1.right_bumper){
-            pusher.setPosition(.5);
+
+                intaketimer = 0;
+
+            } else if (intaketimer == 0) { //position 1 -> 0
+
+                intakerel.setPower(0);
+                intaketimer = 1;
+
+            }
+
         }
 
 
-        if(gamepad1.left_bumper){
-            pusher.setPosition(0);
+
+
+        if (currentGamepad2.a && !previousGamepad2.a) {
+            if (shoottimer == 1) { //position 0 -> 1
+
+
+
+                shooter1.setPower(-.8);
+
+
+                shoottimer = 0;
+
+            } else if (intaketimer == 0) { //position 1 -> 0
+
+                shooter1.setPower(0);
+                shoottimer = 1;
+
+            }
+
         }
-
-
     }
 }
