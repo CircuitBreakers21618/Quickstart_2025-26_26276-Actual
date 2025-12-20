@@ -50,16 +50,16 @@ public class teleop_tavia extends OpMode {
         lr.setPower((-gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1)*1 + gamepad1.right_stick_x);
         rf.setPower((gamepad1.right_stick_y + gamepad1.left_stick_x * 1.1)*1 + gamepad1.right_stick_x);
         rr.setPower((gamepad1.right_stick_y + -gamepad1.left_stick_x * 1.1)*1 + gamepad1.right_stick_x);
-        if (gamepad2.a) {
+        if (gamepad2.b) {
         shooter1.setPower(-.5);
     }
 
-     if (gamepad2.y) {shooter1.setPower(0);
+     if (gamepad2.x) {shooter1.setPower(0);
     }
-        if (gamepad2.x) {
+        if (gamepad2.y) {
             intakerel.setPower(-1);
         }
-        if (gamepad2.b) {
+        if (gamepad2.a) {
             intakerel.setPower(0);
         }
 
