@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
-    .mass(5.1)
+    .mass(7.2)
     .forwardZeroPowerAcceleration(-57.43275565148078)
             .lateralZeroPowerAcceleration(-69.06466312501034)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.3, 0, 0.001, 0.025))
@@ -29,12 +29,12 @@ public class Constants {
             .rightRearMotorName("rr")
             .leftRearMotorName("lr")
             .leftFrontMotorName("lf")
-            .leftFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
+            .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
+            .rightFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE)
-            .xVelocity(81.19377975013016)
-            .yVelocity(62.394072724315606);
+            .xVelocity(51.9736);
+           // .yVelocity(0);
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
     public static Follower createFollower(HardwareMap hardwareMap) {
@@ -46,17 +46,17 @@ public class Constants {
                 .build();
     }
     public static ThreeWheelConstants localizerConstants = new ThreeWheelConstants()
-            .forwardTicksToInches(.002011254)
-            .strafeTicksToInches(.001982816263068474)
-            .turnTicksToInches(.002011254)
+            .forwardTicksToInches(.0020261287634188952)
+            .strafeTicksToInches(.0020538308483531442)
+            .turnTicksToInches(.0023361361365676312)
             .leftPodY(8)
             .rightPodY(-8)
-            .strafePodX(-14.25)
+            .strafePodX(-7)
             .leftEncoder_HardwareMapName("lr")
             .rightEncoder_HardwareMapName("rr")
             .strafeEncoder_HardwareMapName("lf")
             .leftEncoderDirection(Encoder.REVERSE)
             .rightEncoderDirection(Encoder.REVERSE)
-            .strafeEncoderDirection(Encoder.REVERSE);
+            .strafeEncoderDirection(Encoder.FORWARD);
 
 }
