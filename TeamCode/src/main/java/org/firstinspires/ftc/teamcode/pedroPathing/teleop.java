@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
+
+
+import static android.os.SystemClock.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,6 +19,9 @@ public class teleop extends OpMode {
     DcMotor shooter1;
 
     Servo pusher;
+    int sleeppusher = 500;
+    int sleeppusher1 = 500;
+    int sleeppusher2 = 1500;
 
     Gamepad currentGamepad2 = new Gamepad();
     Gamepad previousGamepad2 = new Gamepad();
@@ -42,45 +49,27 @@ public class teleop extends OpMode {
         rf.setPower((gamepad1.left_stick_y + gamepad1.right_stick_y * 1.1)*1 +gamepad1.right_stick_x);
         rr.setPower((gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*1 + gamepad1.right_stick_x);
 
-        if (currentGamepad2.x && !previousGamepad2.x) {
-            if (intaketimer == 1) { //position 0 -> 1
-
-
-
-                intakerel.setPower(-1);
-
-
-                intaketimer = 0;
-
-            } else if (intaketimer == 0) { //position 1 -> 0
-
-                intakerel.setPower(0);
-                intaketimer = 1;
-
-            }
-
+        if (gamepad2.x) {
+            shooter1.setPower(-.5);
         }
 
-
-
-
-        if (currentGamepad2.a && !previousGamepad2.a) {
-            if (shoottimer == 1) { //position 0 -> 1
-
-
-
-                shooter1.setPower(-.8);
-
-
-                shoottimer = 0;
-
-            } else if (intaketimer == 0) { //position 1 -> 0
-
-                shooter1.setPower(0);
-                shoottimer = 1;
-
-            }
-
+        if (gamepad2.b) {shooter1.setPower(0);
         }
-    }
-}
+        if (gamepad2.a) {
+            intakerel.setPower(-1);
+            sleep(sleeppusher2);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher);
+            shooter1.setPower(-1);
+            sleep(sleeppusher2);
+            shooter1.setPower(0);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher1);
+            intakerel.setPower(0);
+
+
+    }}}
