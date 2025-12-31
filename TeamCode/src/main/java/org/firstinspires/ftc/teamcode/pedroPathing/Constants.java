@@ -18,10 +18,10 @@ public class Constants {
     .mass(7.2)
     .forwardZeroPowerAcceleration(-43.587112)
             .lateralZeroPowerAcceleration(-57.22450985)
-            .translationalPIDFCoefficients(new PIDFCoefficients(0.3, 0, 0.001, 0.025))
-            .headingPIDFCoefficients(new PIDFCoefficients(0.6, 0, 0.005, 0.025))
-            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.01,0.0,0.001,0.6,0.025))
-            .centripetalScaling(0.005);
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.5, 0, 0.001, 0.03))
+            .headingPIDFCoefficients(new PIDFCoefficients(0.06, 0, 0.003, 0.025))
+            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.01,0.0,0.002,0.9,0.03))
+            .centripetalScaling(0.075);
 
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
@@ -48,7 +48,7 @@ public class Constants {
     public static ThreeWheelConstants localizerConstants = new ThreeWheelConstants()
             .forwardTicksToInches(.0020261287634188952)
             .strafeTicksToInches(-.0020538308483531442)
-            .turnTicksToInches(.0023361361365676312)
+            .turnTicksToInches(-.0023361361365676312)
             .leftPodY(8)
             .rightPodY(-8)
             .strafePodX(-7)

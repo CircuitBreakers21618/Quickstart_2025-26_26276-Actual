@@ -56,7 +56,7 @@ public class teleop extends OpMode {
         if (gamepad2.b) {shooter1.setPower(0);
         }
         if (gamepad2.a) {
-            intakerel.setPower(-1);
+            intakerel.setPower(-.8);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);

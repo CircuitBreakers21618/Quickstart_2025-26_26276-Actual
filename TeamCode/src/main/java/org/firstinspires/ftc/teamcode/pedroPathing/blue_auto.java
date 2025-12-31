@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.pedroPathing; // make sure this aligns with class location
 
+import static android.os.SystemClock.sleep;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -8,9 +10,19 @@ import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "Example Auto", group = "Examples")
+@Autonomous(name = "Blue Auto", group = "Examples")
 public class blue_auto extends OpMode {
+
+    DcMotor intakerel;
+    DcMotor shooter1;
+
+    Servo pusher;
+    int sleeppusher = 500;
+    int sleeppusher1 = 500;
+    int sleeppusher2 = 1500;
 
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
@@ -77,10 +89,17 @@ public class blue_auto extends OpMode {
                 .addPath(new BezierLine(scorePose, endPose))
                 .setLinearHeadingInterpolation(scorePose.getHeading(), endPose.getHeading())
                 .build();}
+
     public void autonomousPathUpdate() {
+
+        intakerel = hardwareMap.get(DcMotor.class, "intakerel");
+        shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
+
+        pusher = hardwareMap.get(Servo.class, "pusher");
         switch (pathState) {
             case 0:
                 follower.followPath(scorePreload);
+
                 setPathState(1);
                 break;
             case 1:
@@ -91,11 +110,27 @@ public class blue_auto extends OpMode {
             - Robot Position: "if(follower.getPose().getX() > 36) {}"
             */
 
+
+
                 if(!follower.isBusy()) {
                     /* Score Preload */
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(startgrabPickup1,true);
+                    intakerel.setPower(-.8);
+                    sleep(sleeppusher2);
+                    pusher.setPosition(.7);
+                    sleep(sleeppusher1);
+                    pusher.setPosition(.1);
+                    sleep(sleeppusher);
+                    shooter1.setPower(-1);
+                    sleep(sleeppusher2);
+                    shooter1.setPower(0);
+                    pusher.setPosition(.7);
+                    sleep(sleeppusher1);
+                    pusher.setPosition(.1);
+                    sleep(sleeppusher1);
+                    intakerel.setPower(0);
                     setPathState(2);
                 }
                 break;
@@ -107,6 +142,7 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup1,true);
+
                     setPathState(3);
                 }
                 break;
@@ -117,6 +153,7 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup1,true);
+
                     setPathState(4);
                 }
                 break;
@@ -126,6 +163,20 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(startgrabPickup2,true);
+                    intakerel.setPower(-.8);
+                    sleep(sleeppusher2);
+                    pusher.setPosition(.7);
+                    sleep(sleeppusher1);
+                    pusher.setPosition(.1);
+                    sleep(sleeppusher);
+                    shooter1.setPower(-1);
+                    sleep(sleeppusher2);
+                    shooter1.setPower(0);
+                    pusher.setPosition(.7);
+                    sleep(sleeppusher1);
+                    pusher.setPosition(.1);
+                    sleep(sleeppusher1);
+                    intakerel.setPower(0);
                     setPathState(5);
                 }
                 break;
@@ -136,6 +187,7 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup2,true);
+
                     setPathState(6);
                 }
                 break;
@@ -156,6 +208,20 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(end,true);
+                    intakerel.setPower(-.8);
+                    sleep(sleeppusher2);
+                    pusher.setPosition(.7);
+                    sleep(sleeppusher1);
+                    pusher.setPosition(.1);
+                    sleep(sleeppusher);
+                    shooter1.setPower(-1);
+                    sleep(sleeppusher2);
+                    shooter1.setPower(0);
+                    pusher.setPosition(.7);
+                    sleep(sleeppusher1);
+                    pusher.setPosition(.1);
+                    sleep(sleeppusher1);
+                    intakerel.setPower(0);
                     setPathState(8);
                 }
                 break;
