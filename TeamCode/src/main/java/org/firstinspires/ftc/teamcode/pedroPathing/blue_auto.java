@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing; // make sure this aligns wi
 import static android.os.SystemClock.sleep;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -21,20 +22,20 @@ public class blue_auto extends OpMode {
 
     Servo pusher;
     int sleeppusher = 500;
-    int sleeppusher1 = 500;
-    int sleeppusher2 = 1500;
+    int sleeppusher1 = 700;
+    int sleeppusher2 = 1000;
 
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
 
     private int pathState;
     private final Pose startPose = new Pose(56, 8, Math.toRadians(90)); // Start Pose of our robot.
-    private final Pose scorePose = new Pose(72, 22.5, Math.toRadians(125));
-    private final Pose pickup1start = new Pose(50, 36, Math.toRadians(180));
-    private final Pose pickup2start = new Pose(50, 60, Math.toRadians(180));
-    private final Pose endPose = new Pose(50, 36, Math.toRadians(180));
-    private final Pose pickup1Pose = new Pose(30, 36, Math.toRadians(180)); // Highest (First Set) of Artifacts from the Spike Mark.
-    private final Pose pickup2Pose = new Pose(30, 60, Math.toRadians(180)); // Middle (Second Set) of Artifacts from the Spike Mark.// Lowest (Third Set) of Artifacts from the Spike Mark.
+    private final Pose scorePose = new Pose(72, 22.5, Math.toRadians(115));
+    private final Pose pickup1start = new Pose(50, 36, Math.toRadians(195));
+    private final Pose pickup2start = new Pose(50, 60, Math.toRadians(195));
+    private final Pose endPose = new Pose(50, 36, Math.toRadians(185));
+    private final Pose pickup1Pose = new Pose(30, 36, Math.toRadians(195)); // Highest (First Set) of Artifacts from the Spike Mark.
+    private final Pose pickup2Pose = new Pose(30, 60, Math.toRadians(195)); // Middle (Second Set) of Artifacts from the Spike Mark.// Lowest (Third Set) of Artifacts from the Spike Mark.
 
     private Path scorePreload;
     private PathChain startgrabPickup1, startgrabPickup2, end,  grabPickup1, scorePickup1, grabPickup2, scorePickup2;
@@ -42,7 +43,7 @@ public class blue_auto extends OpMode {
     public void buildPaths() {
         /* This is our scorePreload path. We are using a BezierLine, which is a straight line. */
 
-        scorePreload = new Path(new BezierLine(startPose, scorePose));
+        scorePreload = new Path(new BezierCurve(startPose, scorePose));
         scorePreload.setLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading());
 
     /* Here is an example for Constant Interpolation
@@ -50,43 +51,43 @@ public class blue_auto extends OpMode {
 
         /* This is our grabPickup1 PathChain. We are using a single path with a BezierLine, which is a straight line. */
         startgrabPickup1 = follower.pathBuilder()
-                .addPath(new BezierLine(scorePose, pickup1start))
+                .addPath(new BezierCurve(scorePose, pickup1start))
                 .setLinearHeadingInterpolation(scorePose.getHeading(), pickup1start.getHeading())
                 .build();
 
         grabPickup1 = follower.pathBuilder()
-                .addPath(new BezierLine(pickup1start, pickup1Pose))
+                .addPath(new BezierCurve(pickup1start, pickup1Pose))
                 .setLinearHeadingInterpolation(pickup1start.getHeading(), pickup1Pose.getHeading())
                 .build();
 
 
         /* This is our scorePickup1 PathChain. We are using a single path with a BezierLine, which is a straight line. */
         scorePickup1 = follower.pathBuilder()
-                .addPath(new BezierLine(pickup1Pose, scorePose))
+                .addPath(new BezierCurve(pickup1Pose, scorePose))
                 .setLinearHeadingInterpolation(pickup1Pose.getHeading(), scorePose.getHeading())
                 .build();
 
 
         startgrabPickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(scorePose, pickup2start))
+                .addPath(new BezierCurve(scorePose, pickup2start))
                 .setLinearHeadingInterpolation(scorePose.getHeading(), pickup2start.getHeading())
                 .build();
 
         /* This is our grabPickup2 PathChain. We are using a single path with a BezierLine, which is a straight line. */
         grabPickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(pickup2start, pickup2Pose))
+                .addPath(new BezierCurve(pickup2start, pickup2Pose))
                 .setLinearHeadingInterpolation(pickup2start.getHeading(), pickup2Pose.getHeading())
                 .build();
 
         /* This is our scorePickup2 PathChain. We are using a single path with a BezierLine, which is a straight line. */
         scorePickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(pickup2Pose, scorePose))
+                .addPath(new BezierCurve(pickup2Pose, scorePose))
                 .setLinearHeadingInterpolation(pickup2Pose.getHeading(), scorePose.getHeading())
                 .build();
 
 
         end = follower.pathBuilder()
-                .addPath(new BezierLine(scorePose, endPose))
+                .addPath(new BezierCurve(scorePose, endPose))
                 .setLinearHeadingInterpolation(scorePose.getHeading(), endPose.getHeading())
                 .build();}
 
@@ -96,6 +97,7 @@ public class blue_auto extends OpMode {
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
 
         pusher = hardwareMap.get(Servo.class, "pusher");
+        follower.setMaxPower(1);
         switch (pathState) {
             case 0:
                 follower.followPath(scorePreload);
@@ -118,18 +120,19 @@ public class blue_auto extends OpMode {
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(startgrabPickup1,true);
                     intakerel.setPower(-.8);
+                    sleep(sleeppusher1);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
                     shooter1.setPower(-1);
                     sleep(sleeppusher2);
                     shooter1.setPower(0);
                     pusher.setPosition(.7);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     pusher.setPosition(.1);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     intakerel.setPower(0);
                     setPathState(2);
                 }
@@ -142,7 +145,7 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup1,true);
-
+                    shooter1.setPower(-1);
                     setPathState(3);
                 }
                 break;
@@ -153,6 +156,7 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup1,true);
+                   shooter1.setPower(0);
 
                     setPathState(4);
                 }
@@ -164,18 +168,19 @@ public class blue_auto extends OpMode {
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(startgrabPickup2,true);
                     intakerel.setPower(-.8);
+                    sleep(sleeppusher1);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
                     shooter1.setPower(-1);
                     sleep(sleeppusher2);
                     shooter1.setPower(0);
                     pusher.setPosition(.7);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     pusher.setPosition(.1);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     intakerel.setPower(0);
                     setPathState(5);
                 }
@@ -187,6 +192,7 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup2,true);
+                    shooter1.setPower(-1);
 
                     setPathState(6);
                 }
@@ -198,6 +204,7 @@ public class blue_auto extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup2,true);
+                    shooter1.setPower(0);
                     setPathState(7);
                 }
                 break;
@@ -209,18 +216,19 @@ public class blue_auto extends OpMode {
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(end,true);
                     intakerel.setPower(-.8);
+                    sleep(sleeppusher1);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
                     shooter1.setPower(-1);
                     sleep(sleeppusher2);
                     shooter1.setPower(0);
                     pusher.setPosition(.7);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     pusher.setPosition(.1);
-                    sleep(sleeppusher1);
+                    sleep(sleeppusher);
                     intakerel.setPower(0);
                     setPathState(8);
                 }
