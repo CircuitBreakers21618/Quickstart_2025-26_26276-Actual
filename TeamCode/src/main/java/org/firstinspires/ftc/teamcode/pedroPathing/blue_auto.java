@@ -24,7 +24,7 @@ public class blue_auto extends OpMode {
     Servo pusher;
     int sleeppusher = 500;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 1500;
+    int sleeppusher2 = 2000;
 
 
     // ---------- PEDRO ----------
@@ -35,21 +35,21 @@ public class blue_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(56, 8, Math.toRadians(90));
-    Pose scorePose = new Pose(72, 22.5, Math.toRadians(125));
+    Pose scorePose = new Pose(72, 22.5, Math.toRadians(140));
+    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(75));
     Pose parkPose = new Pose(60, 40, Math.toRadians(180));
 
     double pickupHeading = Math.toRadians(195);
 
     Pose pickup1Start = new Pose(50, 30, pickupHeading);
-    Pose pickup2Start = new Pose(50, 55, pickupHeading);
+    Pose pickup2Start = new Pose(50, 60, pickupHeading);
 
     Pose pickup1Fast  = new Pose(36, 30, pickupHeading);
-    Pose pickup1Final = new Pose(27, 30, pickupHeading);
+    Pose pickup1Final = new Pose(23, 32, pickupHeading);
 
-    Pose pickup2Fast  = new Pose(36, 60, pickupHeading);
-    Pose pickup2Final = new Pose(27, 60, pickupHeading);
+    Pose pickup2Fast  = new Pose(30, 60, pickupHeading);
+    Pose pickup2Final = new Pose(17, 60, pickupHeading);
 
-    Pose scoreEntry = new Pose(60, 30, Math.toRadians(140));
 
     // ---------- PATHS ----------
     PathChain scorePreload;
@@ -98,14 +98,14 @@ public class blue_auto extends OpMode {
                 .build();
 
         scorePickup1 = follower.pathBuilder()
-                .addPath(new BezierCurve(pickup1Final, scoreEntry, scorePose))
-                .setLinearHeadingInterpolation(pickupHeading, scorePose.getHeading())
+                .addPath(new BezierCurve(pickup1Final, scorePoseAfter))
+                .setLinearHeadingInterpolation(pickupHeading, scorePoseAfter.getHeading())
                 .build();
 
         // ---------- PICKUP 2 ----------
         toPickup2 = follower.pathBuilder()
-                .addPath(new BezierCurve(scorePose, pickup2Start))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), pickupHeading)
+                .addPath(new BezierCurve(scorePoseAfter , pickup2Start))
+                .setLinearHeadingInterpolation(scorePoseAfter.getHeading(), pickupHeading)
                 .build();
 
         pickup2FastPath = follower.pathBuilder()
@@ -119,14 +119,14 @@ public class blue_auto extends OpMode {
                 .build();
 
         scorePickup2 = follower.pathBuilder()
-                .addPath(new BezierCurve(pickup2Final, scoreEntry, scorePose))
-                .setLinearHeadingInterpolation(pickupHeading, scorePose.getHeading())
+                .addPath(new BezierCurve(pickup2Final, scorePoseAfter))
+                .setLinearHeadingInterpolation(pickupHeading, scorePoseAfter.getHeading())
                 .build();
 
         // ---------- PARK ----------
         parkPath = follower.pathBuilder()
-                .addPath(new BezierCurve(scorePose, parkPose))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading())
+                .addPath(new BezierCurve(scorePoseAfter, parkPose))
+                .setLinearHeadingInterpolation(scorePoseAfter.getHeading(), parkPose.getHeading())
                 .build();
     }
 
@@ -146,6 +146,7 @@ public class blue_auto extends OpMode {
             // ---------- PRELOAD ----------
             case 0:
                 if (!follower.isBusy()) {
+                    sleep(sleeppusher1);
                     intakerel.setPower(-.8);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
@@ -194,6 +195,7 @@ public class blue_auto extends OpMode {
             // ---------- PICKUP 2 ----------
             case 4:
                 if (!follower.isBusy()) {
+                    sleep(sleeppusher1);
                     intakerel.setPower(-.8);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
@@ -240,6 +242,7 @@ public class blue_auto extends OpMode {
             // ---------- ENDGAME PARK ----------
             case 8:
                 if (!follower.isBusy()) {
+                    sleep(sleeppusher1);
                     intakerel.setPower(-.8);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
