@@ -35,21 +35,17 @@ public class red_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(144 - 56, 8, Math.toRadians(90));       // 88, 8
-    Pose scorePose = new Pose(144 - 72, 22.5, Math.toRadians(55));    // 72, 22.5, heading mirrored
+    Pose scorePose = new Pose(144 - 72, 22.5, Math.toRadians(55));
+    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(75));// 72, 22.5, heading mirrored
     Pose parkPose = new Pose(144 - 60, 10, Math.toRadians(0));        // 84, 10
-    double pickupHeading = Math.toRadians(-15);                        // mirrored from 195 -> -15
-    Pose pickup1Start = new Pose(144 - 50, 30, pickupHeading);         // 94, 30
+    double pickupHeading = Math.toRadians(0);                        // mirrored from 195 -> -15
     Pose pickup2Start = new Pose(144 - 50, 55, pickupHeading);         // 94, 55
-    Pose pickup1Fast  = new Pose(144 - 36, 36, pickupHeading);         // 108, 36
-    Pose pickup1Final = new Pose(144 - 27, 36, pickupHeading);         // 117, 36
     Pose pickup2Fast  = new Pose(144 - 36, 60, pickupHeading);         // 108, 60
-    Pose pickup2Final = new Pose(144 - 27, 60, pickupHeading);         // 117, 60
-    Pose scoreEntry = new Pose(144 - 60, 30, Math.toRadians(40));     // 84, 30, heading mirrored
+    Pose pickup2Final = new Pose(144 - 27, 60, pickupHeading);         // 117, 60// 84, 30, heading mirrored
 
 
     // ---------- PATHS ----------
     PathChain scorePreload;
-    PathChain toPickup1, pickup1FastPath, pickup1SlowPath, scorePickup1;
     PathChain toPickup2, pickup2FastPath, pickup2SlowPath, scorePickup2;
     PathChain parkPath;
 
@@ -78,26 +74,6 @@ public class red_auto extends OpMode {
                 .build();
 
         // ---------- PICKUP 1 ----------
-        toPickup1 = follower.pathBuilder()
-                .addPath(new BezierCurve(scorePose, pickup1Start))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), pickupHeading)
-                .build();
-
-        pickup1FastPath = follower.pathBuilder()
-                .addPath(new BezierCurve(pickup1Start, pickup1Fast))
-                .setConstantHeadingInterpolation(pickupHeading)
-                .build();
-
-        pickup1SlowPath = follower.pathBuilder()
-                .addPath(new BezierCurve(pickup1Fast, pickup1Final))
-                .setConstantHeadingInterpolation(pickupHeading)
-                .build();
-
-        scorePickup1 = follower.pathBuilder()
-                .addPath(new BezierCurve(pickup1Final, scoreEntry, scorePose))
-                .setLinearHeadingInterpolation(pickupHeading, scorePose.getHeading())
-                .build();
-
         // ---------- PICKUP 2 ----------
         toPickup2 = follower.pathBuilder()
                 .addPath(new BezierCurve(scorePose, pickup2Start))
@@ -115,7 +91,7 @@ public class red_auto extends OpMode {
                 .build();
 
         scorePickup2 = follower.pathBuilder()
-                .addPath(new BezierCurve(pickup2Final, scoreEntry, scorePose))
+                .addPath(new BezierCurve(pickup2Final, scorePose))
                 .setLinearHeadingInterpolation(pickupHeading, scorePose.getHeading())
                 .build();
 
@@ -156,39 +132,14 @@ public class red_auto extends OpMode {
                     pusher.setPosition(.1);
                     sleep(sleeppusher1);
                     intakerel.setPower(0);
-                    follower.followPath(toPickup1, 1.0, true);
+                    follower.followPath(toPickup2, 1.0, true);
                     state = 1;
                 }
                 break;
 
             // ---------- PICKUP 1 ----------
-            case 1:
-                if (!follower.isBusy()) {
-                    follower.followPath(pickup1FastPath, 1.0, true);
-                    shooter1.setPower(-1);
-                    state = 2;
-                }
-                break;
-
-            case 2:
-                if (!follower.isBusy()) {
-                    follower.followPath(pickup1SlowPath, 0.6, true);
-
-                    actionTimer.resetTimer();
-                    state = 3;
-                }
-                break;
-
-            case 3:
-                if (!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.25) {
-                    follower.followPath(scorePickup1, 1.0, true);
-                    shooter1.setPower(0);
-                    state = 4;
-                }
-                break;
-
             // ---------- PICKUP 2 ----------
-            case 4:
+            case 2:
                 if (!follower.isBusy()) {
                     intakerel.setPower(-.8);
                     sleep(sleeppusher2);
@@ -205,36 +156,36 @@ public class red_auto extends OpMode {
                     sleep(sleeppusher1);
                     intakerel.setPower(0);
                     follower.followPath(toPickup2, 1.0, true);
+                    state = 3;
+                }
+                break;
+
+            case 3:
+                if (!follower.isBusy()) {
+                    follower.followPath(pickup2FastPath, 1.0, true);
+                    shooter1.setPower(-1);
+                    state = 4;
+                }
+                break;
+
+            case 4:
+                if (!follower.isBusy()) {
+                    follower.followPath(pickup2SlowPath, 0.6, true);
+                    actionTimer.resetTimer();
                     state = 5;
                 }
                 break;
 
             case 5:
-                if (!follower.isBusy()) {
-                    follower.followPath(pickup2FastPath, 1.0, true);
-                    shooter1.setPower(-1);
+                if (!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.25) {
+                    follower.followPath(scorePickup2, 1.0, true);
+                    shooter1.setPower(0);
                     state = 6;
                 }
                 break;
 
-            case 6:
-                if (!follower.isBusy()) {
-                    follower.followPath(pickup2SlowPath, 0.6, true);
-                    actionTimer.resetTimer();
-                    state = 7;
-                }
-                break;
-
-            case 7:
-                if (!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.25) {
-                    follower.followPath(scorePickup2, 1.0, true);
-                    shooter1.setPower(0);
-                    state = 8;
-                }
-                break;
-
             // ---------- ENDGAME PARK ----------
-            case 8:
+            case 6:
                 if (!follower.isBusy()) {
                     intakerel.setPower(-.8);
                     sleep(sleeppusher2);
@@ -251,11 +202,11 @@ public class red_auto extends OpMode {
                     sleep(sleeppusher1);
                     intakerel.setPower(0);
                     follower.followPath(parkPath, 1.0, true);
-                    state = 9;
+                    state = 7;
                 }
                 break;
 
-            case 9:
+            case 7:
                 // AUTO COMPLETE – PARKED
                 break;
         }
