@@ -35,8 +35,8 @@ public class red_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(144 - 56, 8, Math.toRadians(90));       // 88, 8
-    Pose scorePose = new Pose(144 - 72, 22.5, Math.toRadians(55));
-    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(75));// 72, 22.5, heading mirrored
+    Pose scorePose = new Pose(144 - 72, 22.5, Math.toRadians(180-170));
+    Pose scorePoseAfter = new Pose(144-72, 22.5, Math.toRadians(180-85));// 72, 22.5, heading mirrored
     Pose parkPose = new Pose(144 - 60, 10, Math.toRadians(0));        // 84, 10
     double pickupHeading = Math.toRadians(0);                        // mirrored from 195 -> -15
     Pose pickup2Start = new Pose(144 - 50, 55, pickupHeading);         // 94, 55
@@ -91,14 +91,14 @@ public class red_auto extends OpMode {
                 .build();
 
         scorePickup2 = follower.pathBuilder()
-                .addPath(new BezierCurve(pickup2Final, scorePose))
-                .setLinearHeadingInterpolation(pickupHeading, scorePose.getHeading())
+                .addPath(new BezierCurve(pickup2Final, scorePoseAfter))
+                .setLinearHeadingInterpolation(pickupHeading, scorePoseAfter.getHeading())
                 .build();
 
         // ---------- PARK ----------
         parkPath = follower.pathBuilder()
-                .addPath(new BezierCurve(scorePose, parkPose))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading())
+                .addPath(new BezierCurve(scorePoseAfter, parkPose))
+                .setLinearHeadingInterpolation(scorePoseAfter.getHeading(), parkPose.getHeading())
                 .build();
     }
 

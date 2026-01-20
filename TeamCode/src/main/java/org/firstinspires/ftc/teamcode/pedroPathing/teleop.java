@@ -50,7 +50,7 @@ public class teleop extends OpMode {
         rr.setPower((gamepad1.left_stick_y + -gamepad1.right_stick_y * 1.1)*1 + gamepad1.right_stick_x);
 
         if (gamepad2.x) {
-            shooter1.setPower(-1);
+            shooter1.setPower(-.5);
         }
 
         if (gamepad2.b) {shooter1.setPower(0);

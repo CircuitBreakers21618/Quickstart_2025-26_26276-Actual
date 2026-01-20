@@ -36,7 +36,7 @@ public class blue_auto extends OpMode {
     // ---------- POSES ----------
     Pose startPose = new Pose(56, 8, Math.toRadians(90));
     Pose scorePose = new Pose(72, 22.5, Math.toRadians(170));
-    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(75));
+    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(85));
     Pose parkPose = new Pose(60, 40, Math.toRadians(180));
 
     double pickupHeading = Math.toRadians(180);
@@ -132,7 +132,7 @@ public class blue_auto extends OpMode {
                     shooter1.setPower(-1);
                     sleep(sleeppusher2);
                     shooter1.setPower(0);
-                    sleep(sleeppusher2);
+                    sleep(sleeppusher1);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
                     pusher.setPosition(.1);
