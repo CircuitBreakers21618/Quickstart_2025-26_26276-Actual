@@ -24,7 +24,7 @@ public class red_auto extends OpMode {
     Servo pusher;
     int sleeppusher = 500;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 1500;
+    int sleeppusher2 = 2700;
 
 
     // ---------- PEDRO ----------
@@ -36,12 +36,12 @@ public class red_auto extends OpMode {
     // ---------- POSES ----------
     Pose startPose = new Pose(144 - 56, 8, Math.toRadians(90));       // 88, 8
     Pose scorePose = new Pose(72, 22.5, Math.toRadians(25));
-    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(5));// 72, 22.5, heading mirrored
-    Pose parkPose = new Pose(144 - 60, 10, Math.toRadians(0));        // 84, 10
-    double pickupHeading = Math.toRadians(0);                        // mirrored from 195 -> -15
-    Pose pickup2Start = new Pose(94, 55, pickupHeading);         // 94, 55
-    Pose pickup2Fast  = new Pose(108 , 60, pickupHeading);         // 108, 60
-    Pose pickup2Final = new Pose(117 , 60, pickupHeading);         // 117, 60// 84, 30, heading mirrored
+    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(170));// 72, 22.5, heading mirrored
+    Pose parkPose = new Pose(90, 40, Math.toRadians(0));        // 84, 10
+    double pickupHeading = Math.toRadians(-5);                        // mirrored from 195 -> -15
+    Pose pickup2Start = new Pose(94, 60, pickupHeading);         // 94, 55
+    Pose pickup2Fast  = new Pose(108 , 57, pickupHeading);         // 108, 60
+    Pose pickup2Final = new Pose(124, 57, pickupHeading);         // 117, 60// 84, 30, heading mirrored
 
 
     // ---------- PATHS ----------
@@ -76,7 +76,7 @@ public class red_auto extends OpMode {
         // ---------- PICKUP 1 ----------
         // ---------- PICKUP 2 ----------
         toPickup2 = follower.pathBuilder()
-                .addPath(new BezierCurve(scorePose, pickup2Start))
+                .addPath(new BezierCurve(scorePose , pickup2Start))
                 .setLinearHeadingInterpolation(scorePose.getHeading(), pickupHeading)
                 .build();
 
@@ -118,6 +118,7 @@ public class red_auto extends OpMode {
             // ---------- PRELOAD ----------
             case 0:
                 if (!follower.isBusy()) {
+                    sleep(sleeppusher1);
                     intakerel.setPower(-.8);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
@@ -127,6 +128,7 @@ public class red_auto extends OpMode {
                     shooter1.setPower(-1);
                     sleep(sleeppusher2);
                     shooter1.setPower(0);
+                    sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
                     pusher.setPosition(.1);
@@ -137,56 +139,42 @@ public class red_auto extends OpMode {
                 }
                 break;
 
-            // ---------- PICKUP 1 ----------
             // ---------- PICKUP 2 ----------
+            case 1:
+                if (!follower.isBusy()) {
+                    follower.followPath(toPickup2, 1.0, true);
+                    state = 2;
+                }
+                break;
+
             case 2:
                 if (!follower.isBusy()) {
-                    intakerel.setPower(-.8);
-                    sleep(sleeppusher2);
-                    pusher.setPosition(.7);
-                    sleep(sleeppusher1);
-                    pusher.setPosition(.1);
-                    sleep(sleeppusher);
+                    follower.followPath(pickup2FastPath, 1.0, true);
                     shooter1.setPower(-1);
-                    sleep(sleeppusher2);
-                    shooter1.setPower(0);
-                    pusher.setPosition(.7);
-                    sleep(sleeppusher1);
-                    pusher.setPosition(.1);
-                    sleep(sleeppusher1);
-                    intakerel.setPower(0);
-                    follower.followPath(toPickup2, 1.0, true);
                     state = 3;
                 }
                 break;
 
             case 3:
                 if (!follower.isBusy()) {
-                    follower.followPath(pickup2FastPath, 1.0, true);
-                    shooter1.setPower(-1);
+                    follower.followPath(pickup2SlowPath, 0.6, true);
+                    actionTimer.resetTimer();
                     state = 4;
                 }
                 break;
 
             case 4:
-                if (!follower.isBusy()) {
-                    follower.followPath(pickup2SlowPath, 0.6, true);
-                    actionTimer.resetTimer();
+                if (!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.25) {
+                    follower.followPath(scorePickup2, 1.0, true);
+                    shooter1.setPower(0);
                     state = 5;
                 }
                 break;
 
-            case 5:
-                if (!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.25) {
-                    follower.followPath(scorePickup2, 1.0, true);
-                    shooter1.setPower(0);
-                    state = 6;
-                }
-                break;
-
             // ---------- ENDGAME PARK ----------
-            case 6:
+            case 5:
                 if (!follower.isBusy()) {
+                    sleep(sleeppusher1);
                     intakerel.setPower(-.8);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
@@ -194,7 +182,7 @@ public class red_auto extends OpMode {
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
                     shooter1.setPower(-1);
-                    sleep(sleeppusher2);
+                    sleep(sleeppusher1);
                     shooter1.setPower(0);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -202,11 +190,11 @@ public class red_auto extends OpMode {
                     sleep(sleeppusher1);
                     intakerel.setPower(0);
                     follower.followPath(parkPath, 1.0, true);
-                    state = 7;
+                    state = 6;
                 }
                 break;
 
-            case 7:
+            case 6:
                 // AUTO COMPLETE – PARKED
                 break;
         }

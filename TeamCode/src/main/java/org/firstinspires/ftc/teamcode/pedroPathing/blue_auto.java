@@ -186,7 +186,7 @@ public class blue_auto extends OpMode {
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
                     shooter1.setPower(-1);
-                    sleep(sleeppusher2);
+                    sleep(sleeppusher1);
                     shooter1.setPower(0);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);

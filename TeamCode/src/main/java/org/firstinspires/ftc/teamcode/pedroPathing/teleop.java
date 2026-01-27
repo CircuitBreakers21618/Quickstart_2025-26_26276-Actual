@@ -21,7 +21,7 @@ public class teleop extends OpMode {
     Servo pusher;
     int sleeppusher = 500;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 1500;
+    int sleeppusher2 = 2500;
 
     Gamepad currentGamepad2 = new Gamepad();
     Gamepad previousGamepad2 = new Gamepad();

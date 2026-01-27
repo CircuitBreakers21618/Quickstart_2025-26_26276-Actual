@@ -18,8 +18,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import java.util.function.Supplier;
 
 @Configurable
-@TeleOp(name = "blueTelleop")
-public class testpedroteleop extends OpMode {
+@TeleOp
+public class redTelleop extends OpMode {
     private Follower follower;
     public static Pose startingPose; //See ExampleAuto to understand how to use this
     private boolean automatedDrive;
