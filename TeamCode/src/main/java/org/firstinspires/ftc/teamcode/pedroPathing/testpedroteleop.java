@@ -32,9 +32,9 @@ public class testpedroteleop extends OpMode {
     DcMotor shooter1;
 
     Servo pusher;
-    int sleeppusher = 500;
+    int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 1500;
+    int sleeppusher2 = 2500;
 
     @Override
     public void init() {
@@ -69,23 +69,55 @@ public class testpedroteleop extends OpMode {
         if (gamepad2.x) {
             shooter1.setPower(-1);
         }
+        if (gamepad2.y) {
+            shooter1.setPower(1);
+        }
 
         if (gamepad2.b) {shooter1.setPower(0);
         }
-        if (gamepad2.a) {
-            intakerel.setPower(-.8);
+        if (gamepad2.left_bumper) {
+            intakerel.setPower(-.85);
+            sleep(sleeppusher2);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher1);
+            shooter1.setPower(-1);
+            sleep(sleeppusher);
+            shooter1.setPower(0);
+            sleep(sleeppusher2);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher);
+            intakerel.setPower(0);
+
+
+        }
+
+        if (gamepad2.right_bumper) {
+            intakerel.setPower(-.85);
+            sleep(sleeppusher2);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher1);
+            shooter1.setPower(-1);
+            sleep(sleeppusher);
+            shooter1.setPower(0);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
             pusher.setPosition(.1);
             sleep(sleeppusher);
             shooter1.setPower(-1);
-            sleep(sleeppusher2);
+            sleep(sleeppusher);
             shooter1.setPower(0);
+            sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
             pusher.setPosition(.1);
-            sleep(sleeppusher1);
+            sleep(sleeppusher);
             intakerel.setPower(0);
 
 
@@ -128,7 +160,9 @@ public class testpedroteleop extends OpMode {
         if (gamepad1.rightBumperWasPressed()) {
             slowMode = !slowMode;
         }
-
+        if (gamepad1.leftBumperWasPressed()) {
+            slowMode = false;
+        }
         //Optional way to change slow mode strength
         if (gamepad1.xWasPressed()) {
             slowModeMultiplier += 0.25;

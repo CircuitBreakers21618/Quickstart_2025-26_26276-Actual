@@ -32,9 +32,9 @@ public class redTelleop extends OpMode {
     DcMotor shooter1;
 
     Servo pusher;
-    int sleeppusher = 500;
+    int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 1500;
+    int sleeppusher2 = 2500;
 
     @Override
     public void init() {
@@ -45,7 +45,7 @@ public class redTelleop extends OpMode {
 
         pathChain = () -> follower.pathBuilder() //Lazy Curve Generation
                 .addPath(new Path(new BezierLine(follower::getPose, new Pose(72, 22.5))))
-                .setHeadingInterpolation(HeadingInterpolator.linearFromPoint(follower::getHeading, Math.toRadians(115), 0.8))
+                .setHeadingInterpolation(HeadingInterpolator.linearFromPoint(follower::getHeading, Math.toRadians(25), 0.8))
                 .build();
     }
 
@@ -69,23 +69,55 @@ public class redTelleop extends OpMode {
         if (gamepad2.x) {
             shooter1.setPower(-1);
         }
+        if (gamepad2.y) {
+            shooter1.setPower(1);
+        }
 
         if (gamepad2.b) {shooter1.setPower(0);
         }
-        if (gamepad2.a) {
-            intakerel.setPower(-.8);
+        if (gamepad2.left_bumper) {
+            intakerel.setPower(-.85);
+            sleep(sleeppusher2);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher1);
+            shooter1.setPower(-1);
+            sleep(sleeppusher);
+            shooter1.setPower(0);
+            sleep(sleeppusher2);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher);
+            intakerel.setPower(0);
+
+
+        }
+
+        if (gamepad2.right_bumper) {
+            intakerel.setPower(-.85);
+            sleep(sleeppusher2);
+            pusher.setPosition(.7);
+            sleep(sleeppusher1);
+            pusher.setPosition(.1);
+            sleep(sleeppusher1);
+            shooter1.setPower(-1);
+            sleep(sleeppusher);
+            shooter1.setPower(0);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
             pusher.setPosition(.1);
             sleep(sleeppusher);
             shooter1.setPower(-1);
-            sleep(sleeppusher2);
+            sleep(sleeppusher);
             shooter1.setPower(0);
+            sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
             pusher.setPosition(.1);
-            sleep(sleeppusher1);
+            sleep(sleeppusher);
             intakerel.setPower(0);
 
 
@@ -98,7 +130,7 @@ public class redTelleop extends OpMode {
             //This is the normal version to use in the TeleOp
             if (!slowMode) follower.setTeleOpDrive(
                     -gamepad1.left_stick_y,
-                    -gamepad1.left_stick_x,
+                    -gamepad1.right_stick_y,
                     -gamepad1.right_stick_x,
                     true // Robot Centric
             );
@@ -129,6 +161,9 @@ public class redTelleop extends OpMode {
             slowMode = !slowMode;
         }
 
+        if (gamepad1.leftBumperWasPressed()) {
+            slowMode = false;
+        }
         //Optional way to change slow mode strength
         if (gamepad1.xWasPressed()) {
             slowModeMultiplier += 0.25;
