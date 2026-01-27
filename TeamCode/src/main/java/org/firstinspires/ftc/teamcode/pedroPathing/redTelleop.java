@@ -39,7 +39,7 @@ public class redTelleop extends OpMode {
     @Override
     public void init() {
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(startingPose == null ? new Pose(56, 8, Math.toRadians(90)) : startingPose);
+        follower.setStartingPose(startingPose == null ? new Pose(144 - 56, 8, Math.toRadians(90)) : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
 
