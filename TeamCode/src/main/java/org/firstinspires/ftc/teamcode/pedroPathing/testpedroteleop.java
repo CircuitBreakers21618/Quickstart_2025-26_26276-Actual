@@ -75,7 +75,8 @@ public class testpedroteleop extends OpMode {
 
         if (gamepad2.b) {shooter1.setPower(0);
         }
-        if (gamepad2.left_bumper) {
+
+        if (gamepad2.a) {
             intakerel.setPower(-.85);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
@@ -83,37 +84,8 @@ public class testpedroteleop extends OpMode {
             pusher.setPosition(.1);
             sleep(sleeppusher1);
             shooter1.setPower(-1);
-            sleep(sleeppusher);
+            sleep(sleeppusher2);
             shooter1.setPower(0);
-            sleep(sleeppusher2);
-            pusher.setPosition(.7);
-            sleep(sleeppusher1);
-            pusher.setPosition(.1);
-            sleep(sleeppusher);
-            intakerel.setPower(0);
-
-
-        }
-
-        if (gamepad2.right_bumper) {
-            intakerel.setPower(-.85);
-            sleep(sleeppusher2);
-            pusher.setPosition(.7);
-            sleep(sleeppusher1);
-            pusher.setPosition(.1);
-            sleep(sleeppusher1);
-            shooter1.setPower(-1);
-            sleep(sleeppusher);
-            shooter1.setPower(0);
-            sleep(sleeppusher2);
-            pusher.setPosition(.7);
-            sleep(sleeppusher1);
-            pusher.setPosition(.1);
-            sleep(sleeppusher);
-            shooter1.setPower(-1);
-            sleep(sleeppusher);
-            shooter1.setPower(0);
-            sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
             pusher.setPosition(.1);
