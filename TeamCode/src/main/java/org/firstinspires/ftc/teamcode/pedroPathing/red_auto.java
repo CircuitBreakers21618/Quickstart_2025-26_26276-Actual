@@ -22,9 +22,9 @@ public class red_auto extends OpMode {
     DcMotor shooter1;
 
     Servo pusher;
-    int sleeppusher = 500;
+    int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 2700;
+    int sleeppusher2 = 2500;
 
 
     // ---------- PEDRO ----------
@@ -35,9 +35,9 @@ public class red_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(144 - 56, 8, Math.toRadians(90));       // 88, 8
-    Pose scorePose = new Pose(72, 22.5, Math.toRadians(25));
-    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(170));// 72, 22.5, heading mirrored
-    Pose parkPose = new Pose(90, 40, Math.toRadians(0));        // 84, 10
+    Pose scorePose = new Pose(72, 25, Math.toRadians(20));
+    Pose scorePoseAfter = new Pose(72, 25, Math.toRadians(175));// 72, 22.5, heading mirrored
+    Pose parkPose = new Pose(80, 38, Math.toRadians(0));        // 84, 10
     double pickupHeading = Math.toRadians(-5);                        // mirrored from 195 -> -15
     Pose pickup2Start = new Pose(94, 60, pickupHeading);         // 94, 55
     Pose pickup2Fast  = new Pose(108 , 57, pickupHeading);         // 108, 60
@@ -119,7 +119,7 @@ public class red_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.8);
+                    intakerel.setPower(-.85);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -175,19 +175,12 @@ public class red_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.8);
+                    intakerel.setPower(-.85);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
-                    shooter1.setPower(-1);
-                    sleep(sleeppusher1);
-                    shooter1.setPower(0);
-                    pusher.setPosition(.7);
-                    sleep(sleeppusher1);
-                    pusher.setPosition(.1);
-                    sleep(sleeppusher1);
                     intakerel.setPower(0);
                     follower.followPath(parkPath, 1.0, true);
                     state = 6;

@@ -31,6 +31,7 @@ public class testpedroteleop extends OpMode {
     DcMotor intakerel;
     DcMotor shooter1;
 
+    shoot shoot = new shoot();
     Servo pusher;
     int sleeppusher = 800;
     int sleeppusher1 = 500;
@@ -39,12 +40,12 @@ public class testpedroteleop extends OpMode {
     @Override
     public void init() {
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(startingPose == null ? new Pose(56, 8, Math.toRadians(90)) : startingPose);
+        follower.setStartingPose(startingPose == null ? new Pose(60, 40, Math.toRadians(180)) : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
 
         pathChain = () -> follower.pathBuilder() //Lazy Curve Generation
-                .addPath(new Path(new BezierLine(follower::getPose, new Pose(72, 22.5))))
+                .addPath(new Path(new BezierLine(follower::getPose, new Pose(72, 24))))
                 .setHeadingInterpolation(HeadingInterpolator.linearFromPoint(follower::getHeading, Math.toRadians(115), 0.8))
                 .build();
     }
@@ -58,6 +59,8 @@ public class testpedroteleop extends OpMode {
         intakerel = hardwareMap.get(DcMotor.class, "intakerel");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
 
+
+        shoot.init(hardwareMap);
         pusher = hardwareMap.get(Servo.class, "pusher");
     }
 
@@ -77,7 +80,7 @@ public class testpedroteleop extends OpMode {
         }
 
         if (gamepad2.a) {
-            intakerel.setPower(-.85);
+            /*intakerel.setPower(-.85);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
@@ -90,7 +93,8 @@ public class testpedroteleop extends OpMode {
             sleep(sleeppusher1);
             pusher.setPosition(.1);
             sleep(sleeppusher);
-            intakerel.setPower(0);
+            intakerel.setPower(0);*/
+            shoot.shoot2();
 
 
         }

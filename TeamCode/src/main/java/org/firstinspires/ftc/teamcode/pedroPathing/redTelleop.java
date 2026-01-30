@@ -36,15 +36,17 @@ public class redTelleop extends OpMode {
     int sleeppusher1 = 500;
     int sleeppusher2 = 2500;
 
+    shoot shoot = new shoot();
+
     @Override
     public void init() {
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(startingPose == null ? new Pose(144 - 56, 8, Math.toRadians(90)) : startingPose);
+        follower.setStartingPose(startingPose == null ? new Pose(80, 38, Math.toRadians(0)) : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
 
         pathChain = () -> follower.pathBuilder() //Lazy Curve Generation
-                .addPath(new Path(new BezierLine(follower::getPose, new Pose(72, 22.5))))
+                .addPath(new Path(new BezierLine(follower::getPose, new Pose(72, 24))))
                 .setHeadingInterpolation(HeadingInterpolator.linearFromPoint(follower::getHeading, Math.toRadians(25), 0.8))
                 .build();
     }
@@ -58,6 +60,7 @@ public class redTelleop extends OpMode {
         intakerel = hardwareMap.get(DcMotor.class, "intakerel");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
 
+        shoot.init(hardwareMap);
         pusher = hardwareMap.get(Servo.class, "pusher");
     }
 
@@ -75,53 +78,26 @@ public class redTelleop extends OpMode {
 
         if (gamepad2.b) {shooter1.setPower(0);
         }
-        if (gamepad2.left_bumper) {
-            intakerel.setPower(-.85);
+        if (gamepad2.a) {
+            /*intakerel.setPower(-.85);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
             pusher.setPosition(.1);
             sleep(sleeppusher1);
             shooter1.setPower(-1);
-            sleep(sleeppusher);
-            shooter1.setPower(0);
             sleep(sleeppusher2);
+            shooter1.setPower(0);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
             pusher.setPosition(.1);
             sleep(sleeppusher);
-            intakerel.setPower(0);
+            intakerel.setPower(0);*/
+            shoot.shoot2();
 
 
         }
 
-        if (gamepad2.right_bumper) {
-            intakerel.setPower(-.85);
-            sleep(sleeppusher2);
-            pusher.setPosition(.7);
-            sleep(sleeppusher1);
-            pusher.setPosition(.1);
-            sleep(sleeppusher1);
-            shooter1.setPower(-1);
-            sleep(sleeppusher);
-            shooter1.setPower(0);
-            sleep(sleeppusher2);
-            pusher.setPosition(.7);
-            sleep(sleeppusher1);
-            pusher.setPosition(.1);
-            sleep(sleeppusher);
-            shooter1.setPower(-1);
-            sleep(sleeppusher);
-            shooter1.setPower(0);
-            sleep(sleeppusher2);
-            pusher.setPosition(.7);
-            sleep(sleeppusher1);
-            pusher.setPosition(.1);
-            sleep(sleeppusher);
-            intakerel.setPower(0);
-
-
-        }
 
         if (!automatedDrive) {
             //Make the last parameter false for field-centric

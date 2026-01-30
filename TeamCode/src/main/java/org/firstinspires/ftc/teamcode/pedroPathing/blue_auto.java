@@ -22,9 +22,9 @@ public class blue_auto extends OpMode {
     DcMotor shooter1;
 
     Servo pusher;
-    int sleeppusher = 500;
+    int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 2700;
+    int sleeppusher2 = 2500;
 
 
     // ---------- PEDRO ----------
@@ -35,8 +35,8 @@ public class blue_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(56, 8, Math.toRadians(90));
-    Pose scorePose = new Pose(72, 22.5, Math.toRadians(170));
-    Pose scorePoseAfter = new Pose(72, 22.5, Math.toRadians(55));
+    Pose scorePose = new Pose(72, 25, Math.toRadians(165));
+    Pose scorePoseAfter = new Pose(72, 25, Math.toRadians(60));
     Pose parkPose = new Pose(60, 40, Math.toRadians(180));
 
     double pickupHeading = Math.toRadians(180);
@@ -123,7 +123,7 @@ public class blue_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.8);
+                    intakerel.setPower(-.83);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -179,20 +179,12 @@ public class blue_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.8);
+                    intakerel.setPower(-.83);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
-                    shooter1.setPower(-1);
-                    sleep(sleeppusher1);
-                    shooter1.setPower(0);
-                    pusher.setPosition(.7);
-                    sleep(sleeppusher1);
-                    pusher.setPosition(.1);
-                    sleep(sleeppusher1);
-                    intakerel.setPower(0);
                     follower.followPath(parkPath, 1.0, true);
                     state = 6;
                 }
