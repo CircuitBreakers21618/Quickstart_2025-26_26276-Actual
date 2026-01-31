@@ -79,7 +79,7 @@ public class redTelleop extends OpMode {
         if (gamepad2.b) {shooter1.setPower(0);
         }
         if (gamepad2.a) {
-            /*intakerel.setPower(-.85);
+            intakerel.setPower(-.85);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
@@ -92,8 +92,7 @@ public class redTelleop extends OpMode {
             sleep(sleeppusher1);
             pusher.setPosition(.1);
             sleep(sleeppusher);
-            intakerel.setPower(0);*/
-            shoot.shoot2();
+            intakerel.setPower(0);
 
 
         }

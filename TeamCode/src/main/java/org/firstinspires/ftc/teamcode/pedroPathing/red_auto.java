@@ -35,8 +35,8 @@ public class red_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(144 - 56, 8, Math.toRadians(90));       // 88, 8
-    Pose scorePose = new Pose(72, 25, Math.toRadians(20));
-    Pose scorePoseAfter = new Pose(72, 25, Math.toRadians(175));// 72, 22.5, heading mirrored
+    Pose scorePose = new Pose(72, 25, Math.toRadians(25));
+    Pose scorePoseAfter = new Pose(72, 25, Math.toRadians(140));// 72, 22.5, heading mirrored
     Pose parkPose = new Pose(80, 38, Math.toRadians(0));        // 84, 10
     double pickupHeading = Math.toRadians(-5);                        // mirrored from 195 -> -15
     Pose pickup2Start = new Pose(94, 60, pickupHeading);         // 94, 55
