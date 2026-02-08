@@ -35,8 +35,8 @@ public class red_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(144 - 56, 8, Math.toRadians(90));       // 88, 8
-    Pose scorePose = new Pose(72, 25, Math.toRadians(25));
-    Pose scorePoseAfter = new Pose(72, 25, Math.toRadians(140));// 72, 22.5, heading mirrored
+    Pose scorePose = new Pose(144-56, 22, Math.toRadians(23));
+    Pose scorePoseAfter = new Pose(144-56, 20, Math.toRadians(145));// 72, 22.5, heading mirrored
     Pose parkPose = new Pose(80, 38, Math.toRadians(0));        // 84, 10
     double pickupHeading = Math.toRadians(-5);                        // mirrored from 195 -> -15
     Pose pickup2Start = new Pose(94, 60, pickupHeading);         // 94, 55
@@ -119,7 +119,7 @@ public class red_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.85);
+                    intakerel.setPower(-.83);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -175,13 +175,14 @@ public class red_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.85);
+                    intakerel.setPower(-.83);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
                     intakerel.setPower(0);
+
                     follower.followPath(parkPath, 1.0, true);
                     state = 6;
                 }

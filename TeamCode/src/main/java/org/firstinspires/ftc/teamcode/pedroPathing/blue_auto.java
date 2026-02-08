@@ -35,17 +35,17 @@ public class blue_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(56, 8, Math.toRadians(90));
-    Pose scorePose = new Pose(72, 25, Math.toRadians(165));
-    Pose scorePoseAfter = new Pose(72, 25, Math.toRadians(60));
+    Pose scorePose = new Pose(56, 22, Math.toRadians(178));
+    Pose scorePoseAfter = new Pose(56, 18, Math.toRadians(55));
     Pose parkPose = new Pose(60, 40, Math.toRadians(180));
 
-    double pickupHeading = Math.toRadians(180);
+    double pickupHeading = Math.toRadians(190);
 
 
-    Pose pickup2Start = new Pose(50, 60, pickupHeading);
+    Pose pickup2Start = new Pose(50, 57, pickupHeading);
 
-    Pose pickup2Fast  = new Pose(30, 60, pickupHeading);
-    Pose pickup2Final = new Pose(17, 60, pickupHeading);
+    Pose pickup2Fast  = new Pose(30, 55, pickupHeading);
+    Pose pickup2Final = new Pose(17, 55, pickupHeading);
 
 
     // ---------- PATHS ----------
@@ -123,7 +123,7 @@ public class blue_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.83);
+                    intakerel.setPower(-.81);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -179,12 +179,13 @@ public class blue_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.83);
+                    intakerel.setPower(-.79);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
                     pusher.setPosition(.1);
                     sleep(sleeppusher);
+                    intakerel.setPower(0);
                     follower.followPath(parkPath, 1.0, true);
                     state = 6;
                 }

@@ -31,7 +31,6 @@ public class testpedroteleop extends OpMode {
     DcMotor intakerel;
     DcMotor shooter1;
 
-    shoot shoot = new shoot();
     Servo pusher;
     int sleeppusher = 800;
     int sleeppusher1 = 500;
@@ -60,7 +59,7 @@ public class testpedroteleop extends OpMode {
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
 
 
-        shoot.init(hardwareMap);
+
         pusher = hardwareMap.get(Servo.class, "pusher");
     }
 
@@ -72,15 +71,15 @@ public class testpedroteleop extends OpMode {
         if (gamepad2.x) {
             shooter1.setPower(-1);
         }
-        if (gamepad2.y) {
+        if (gamepad2.a) {
             shooter1.setPower(1);
         }
 
         if (gamepad2.b) {shooter1.setPower(0);
         }
 
-        if (gamepad2.a) {
-            /*intakerel.setPower(-.85);
+        if (gamepad2.y) {
+            intakerel.setPower(-.85);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
@@ -93,8 +92,7 @@ public class testpedroteleop extends OpMode {
             sleep(sleeppusher1);
             pusher.setPosition(.1);
             sleep(sleeppusher);
-            intakerel.setPower(0);*/
-            shoot.shoot2();
+            intakerel.setPower(0);
 
 
         }
@@ -105,16 +103,16 @@ public class testpedroteleop extends OpMode {
 
             //This is the normal version to use in the TeleOp
             if (!slowMode) follower.setTeleOpDrive(
-                    -gamepad1.left_stick_y,
-                    -gamepad1.left_stick_x,
+                    -gamepad1.right_stick_y,
+                    -gamepad1.left_stick_x *1.1,
                     -gamepad1.right_stick_x,
                     true // Robot Centric
             );
 
                 //This is how it looks with slowMode on
             else follower.setTeleOpDrive(
-                    -gamepad1.left_stick_y * slowModeMultiplier,
-                    -gamepad1.left_stick_x * slowModeMultiplier,
+                    -gamepad1.right_stick_y * slowModeMultiplier,
+                    -gamepad1.left_stick_x *1.1* slowModeMultiplier,
                     -gamepad1.right_stick_x * slowModeMultiplier,
                     true // Robot Centric
             );
