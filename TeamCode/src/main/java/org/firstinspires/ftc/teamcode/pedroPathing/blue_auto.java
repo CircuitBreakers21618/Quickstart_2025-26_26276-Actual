@@ -123,7 +123,7 @@ public class blue_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.81);
+                    intakerel.setPower(-.85);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);

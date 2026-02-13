@@ -119,7 +119,7 @@ public class red_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.83);
+                    intakerel.setPower(-.85);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -175,7 +175,7 @@ public class red_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.83);
+                    intakerel.setPower(-.85);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);

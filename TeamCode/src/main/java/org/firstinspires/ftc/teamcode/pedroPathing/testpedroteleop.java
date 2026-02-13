@@ -34,7 +34,7 @@ public class testpedroteleop extends OpMode {
     Servo pusher;
     int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 2500;
+    int sleeppusher2 = 3100;
 
     @Override
     public void init() {
@@ -79,7 +79,7 @@ public class testpedroteleop extends OpMode {
         }
 
         if (gamepad2.y) {
-            intakerel.setPower(-.85);
+            intakerel.setPower(-.9);
             sleep(sleeppusher2);
             pusher.setPosition(.7);
             sleep(sleeppusher1);
