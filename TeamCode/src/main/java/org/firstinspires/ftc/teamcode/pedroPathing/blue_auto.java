@@ -24,7 +24,7 @@ public class blue_auto extends OpMode {
     Servo pusher;
     int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 2500;
+    int sleeppusher2 = 2800;
 
 
     // ---------- PEDRO ----------
@@ -35,8 +35,8 @@ public class blue_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(56, 8, Math.toRadians(90));
-    Pose scorePose = new Pose(56, 22, Math.toRadians(178));
-    Pose scorePoseAfter = new Pose(56, 18, Math.toRadians(55));
+    Pose scorePose = new Pose(56, 22, Math.toRadians(186));
+    Pose scorePoseAfter = new Pose(56, 18, Math.toRadians(50));
     Pose parkPose = new Pose(60, 40, Math.toRadians(180));
 
     double pickupHeading = Math.toRadians(190);
@@ -123,7 +123,7 @@ public class blue_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.85);
+                    intakerel.setPower(-.89);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -179,7 +179,7 @@ public class blue_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.79);
+                    intakerel.setPower(-.89);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
