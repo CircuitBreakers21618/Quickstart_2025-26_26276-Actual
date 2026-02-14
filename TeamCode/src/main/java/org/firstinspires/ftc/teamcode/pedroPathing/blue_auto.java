@@ -24,7 +24,7 @@ public class blue_auto extends OpMode {
     Servo pusher;
     int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 2800;
+    int sleeppusher2 = 3100;
 
 
     // ---------- PEDRO ----------
@@ -123,7 +123,7 @@ public class blue_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.89);
+                    intakerel.setPower(-.895);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -179,7 +179,7 @@ public class blue_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.89);
+                    intakerel.setPower(-.97);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);

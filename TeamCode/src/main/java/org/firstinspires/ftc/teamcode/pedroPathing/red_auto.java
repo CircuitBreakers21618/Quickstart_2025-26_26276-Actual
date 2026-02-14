@@ -24,7 +24,7 @@ public class red_auto extends OpMode {
     Servo pusher;
     int sleeppusher = 800;
     int sleeppusher1 = 500;
-    int sleeppusher2 = 2500;
+    int sleeppusher2 = 3100;
 
 
     // ---------- PEDRO ----------
@@ -35,13 +35,13 @@ public class red_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(144 - 56, 8, Math.toRadians(90));       // 88, 8
-    Pose scorePose = new Pose(144-56, 22, Math.toRadians(23));
+    Pose scorePose = new Pose(144-56, 22, Math.toRadians(26));
     Pose scorePoseAfter = new Pose(144-56, 20, Math.toRadians(145));// 72, 22.5, heading mirrored
     Pose parkPose = new Pose(80, 38, Math.toRadians(0));        // 84, 10
     double pickupHeading = Math.toRadians(-5);                        // mirrored from 195 -> -15
-    Pose pickup2Start = new Pose(94, 60, pickupHeading);         // 94, 55
-    Pose pickup2Fast  = new Pose(108 , 57, pickupHeading);         // 108, 60
-    Pose pickup2Final = new Pose(124, 57, pickupHeading);         // 117, 60// 84, 30, heading mirrored
+    Pose pickup2Start = new Pose(94, 50, pickupHeading);         // 94, 55
+    Pose pickup2Fast  = new Pose(118 , 55, pickupHeading);         // 108, 60
+    Pose pickup2Final = new Pose(132, 55, pickupHeading);         // 117, 60// 84, 30, heading mirrored
 
 
     // ---------- PATHS ----------
@@ -119,7 +119,7 @@ public class red_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.85);
+                    intakerel.setPower(-.895);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -175,7 +175,7 @@ public class red_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.85);
+                    intakerel.setPower(-.97);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);

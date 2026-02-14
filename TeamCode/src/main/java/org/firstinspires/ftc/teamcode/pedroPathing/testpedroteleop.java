@@ -118,11 +118,11 @@ public class testpedroteleop extends OpMode {
             );
         }
 
-        //Automated PathFollowing
+        /*Automated PathFollowing
         if (gamepad1.aWasPressed()) {
             follower.followPath(pathChain.get());
             automatedDrive = true;
-        }
+        }*/
 
         //Stop automated following if the follower is done
         if (automatedDrive && (gamepad1.bWasPressed() || !follower.isBusy())) {
