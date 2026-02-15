@@ -35,8 +35,8 @@ public class blue_auto extends OpMode {
 
     // ---------- POSES ----------
     Pose startPose = new Pose(56, 8, Math.toRadians(90));
-    Pose scorePose = new Pose(56, 22, Math.toRadians(186));
-    Pose scorePoseAfter = new Pose(56, 18, Math.toRadians(50));
+    Pose scorePose = new Pose(56, 22, Math.toRadians(182));
+    Pose scorePoseAfter = new Pose(56, 18, Math.toRadians(58));
     Pose parkPose = new Pose(60, 40, Math.toRadians(180));
 
     double pickupHeading = Math.toRadians(190);
@@ -123,7 +123,7 @@ public class blue_auto extends OpMode {
             case 0:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.895);
+                    intakerel.setPower(-.9);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
@@ -179,7 +179,7 @@ public class blue_auto extends OpMode {
             case 5:
                 if (!follower.isBusy()) {
                     sleep(sleeppusher1);
-                    intakerel.setPower(-.97);
+                    intakerel.setPower(-.87);
                     sleep(sleeppusher2);
                     pusher.setPosition(.7);
                     sleep(sleeppusher1);
